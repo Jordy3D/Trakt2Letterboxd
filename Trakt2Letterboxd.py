@@ -60,9 +60,7 @@ def convert(trakt_file):
     print("Converted.")
 
 
-sys.argv.append("watched_movies.txt")
-
-if len(sys.argv) == 1:
+    if len(sys.argv) == 1:
     print("Please drop a file onto Trakt2Letterbox.py")
 else:
     trakt_file = sys.argv[1]
