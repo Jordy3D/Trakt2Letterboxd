@@ -7,6 +7,7 @@ The Letterboxd import page can be found [here](https://letterboxd.com/import/).
 Some sample files can be found at [this path](https://github.com/Jordy3D/Trakt2Letterboxd/tree/main/Examples) showing an actual backup file, as well as the final .csv output ready for Letterboxd.
 
 ## Requirements
+`python3`
 `pandas`
 `flatten-json`
 
