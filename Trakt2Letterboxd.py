@@ -4,53 +4,69 @@ import sys
 import os
 
 
-def convert(trakt_file):
-    invalid_keys = ['"slug":', '"trakt":', '"tvdb":', '"tvrage":',
-                    '"plays":', '"last_updated_at":', '"reset_at":',
-                    '"movie":', '"ids":', '"show":']
+def rename_dict_keys(dict, pairs):
+    for pair in pairs:
+        dict[pair[1]] = dict[pair[0]]
+        del dict[pair[0]]
+    return dict
 
+
+def convert(trakt_file):
     with open(trakt_file, encoding='utf-8') as f:
         print("Opening the file...")
         input_json = json.load(f)
 
         # Clean JSON
         print("Cleaning JSON...")
-        pf = json.dumps(input_json, indent=0)
+        pf = json.dumps(input_json, indent=4)
 
         with open('cleaned.json', 'w') as cj:
             cj.write(pf)
 
         # Parse JSON
         print("Parsing JSON...")
+        empty_json = []
         with open('cleaned.json', 'r') as cj, open('parsed.json', 'w') as pj:
-            for line in cj:
-                if not any(key in line for key in invalid_keys):
-                    if "}" in line and not "," in line:
-                        line = ""
-                    if '"last_watched_at"' in line:
-                        line = line.replace('last_watched_at', 'WatchedDate')
-                    if '"imdb"' in line:
-                        line = line.replace('imdb', 'imdbID')
-                    if '"tmdb"' in line:
-                        line = line.replace('tmdb', 'tmdbID')
-                    if '"year"' in line:
-                        line = line.replace('year', 'Year')
-                    if '"title"' in line:
-                        line = line.replace('title', 'Title')
-                    if ']' in line:
-                        line = "}\n]"
+            lj = json.load(cj)
 
-                    pj.write(line)
+            for item in lj:
+                # Create empty Dict for shoving shit into
+                empty = {}
+
+                # Keys we care about
+                raw_keys = ["last_watched_at"]
+                sub_keys = ["title", "year"]
+                id_keys = ["imdb", "tmdb"]
+
+                for index, key in enumerate(sub_keys):
+                    if 'movie' in item:
+                        empty[sub_keys[index]] = item['movie'][sub_keys[index]]
+                    else:
+                        empty[sub_keys[index]] = item['show'][sub_keys[index]]
+
+                for index, key in enumerate(sub_keys):
+                    if 'movie' in item:
+                        empty[id_keys[index]] = item['movie']['ids'][id_keys[index]]
+                    else:
+                        empty[id_keys[index]] = item['show']['ids'][id_keys[index]]
+
+                for index, key in enumerate(raw_keys):
+                    empty[raw_keys[index]] = item[raw_keys[index]]
+
+                # Re-assign Dict values to themselves, effectively renaming them
+                pairs = [["title", "Title"], ["year", "Year"], ["imdb", "imdbID"], ["tmdb", "tmdbID"],
+                         ["last_watched_at", "WatchedDate"]]
+                empty = rename_dict_keys(empty, pairs)
+
+                empty_json.append(empty)
+
+            pj.write(json.dumps(empty_json, indent=4))
 
         # Convert to CSV
         print("Converting JSON...")
         with open('parsed.json', encoding='utf-8') as inputfile:
             df = pd.read_json(inputfile)
-
-            df = df[['Title', 'Year', 'imdbID', 'tmdbID', 'WatchedDate']]
             df.to_csv("Trakt2Letterboxd.csv", index=False)
-            # df = pd.read_csv('csvfile.csv')
-            # df.to_csv("csvfile.csv", index=False)
 
         # Cleanup temp files
         print("Cleaning up...")

@@ -9,17 +9,13 @@ Some sample files can be found at [this path](https://github.com/Jordy3D/Trakt2L
 ## Requirements
 `python3`
 `pandas`
-`flatten-json`
 
 ## Usage
-Drop a valid backup file from the above link (only known-working one being watched_movies.txt) onto Trakt2Letterboxd.py
+Drop a valid backup file from the above link (only known-working ones being watched_movies.txt and watched_shows.txt) onto Trakt2Letterboxd.py
 
 ## A few notes: 
-It will NOT work for TV shows.
-This is for a number of reasons:
-- Letterboxd's support for TV shows is kinda spotty as it is
-- The format is annoyingly different with TV shows and I am too tired as of the writing of this program to support it
-- Even when things are successfully converted, Letterboxd rarely accurately connects what you submit with something on their system. This can be understandable (Black Butler the anime being picked up as the live-action film), but many others are outright incorrect.
+It may not work well for TV shows.
+This is because TV shows are far from Letterboxd's focus. An early version of this tool would fail spectacularly every time it tried to do TV things, but now it's at least somewhat capable. Mileage may vary.
 
 The Trakt backup doesn't seem to list the first time a movie was watched, just the most recent. If you don't rewatch things often, this shouldn't be an issue, but it's something to consider if the Watch Dates being accurate is something you care about.
 
