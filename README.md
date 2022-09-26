@@ -11,6 +11,9 @@ Some sample files can be found at [this path](https://github.com/Jordy3D/Trakt2L
 `pandas`
 `flatten-json`
 
+## Usage
+Drop a valid backup file from the above link (only known-working one being watched_movies.txt) onto Trakt2Letterboxd.py
+
 ## A few notes: 
 It will NOT work for TV shows.
 This is for a number of reasons:
