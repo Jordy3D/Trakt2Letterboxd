@@ -60,7 +60,7 @@ def convert(trakt_file):
     print("Converted.")
 
 
-    if len(sys.argv) == 1:
+if len(sys.argv) == 1:
     print("Please drop a file onto Trakt2Letterbox.py")
 else:
     trakt_file = sys.argv[1]
