@@ -19,4 +19,5 @@ This is because TV shows are far from Letterboxd's focus. An early version of th
 
 The Trakt backup doesn't seem to list the first time a movie was watched, just the most recent. If you don't rewatch things often, this shouldn't be an issue, but it's something to consider if the Watch Dates being accurate is something you care about.
 
-If someone is willing to use this work to make it some webtool, they're more than free to do so. Just let me know in a GitHub issue or something and I'll link to it here.
+If someone is willing to use this work to make it some webtool, they're more than free to do so. Just let me know in a GitHub issue or something and I'll link to it here.  
+There is a WIP (likely won't change much) webtool available [here](https://jordy3d.github.io/trakt2letterboxd).
