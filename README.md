@@ -13,7 +13,7 @@ Some sample files can be found at [this path](https://github.com/Jordy3D/Trakt2L
 ## Usage
 Drop a valid backup file from the above link (only known-working ones being watched_movies.txt and watched_shows.txt) onto Trakt2Letterboxd.py
 
-## [There is a WIP webtool available here](https://jordy3d.github.io/trakt2letterboxd).
+## [There is a WIP webtool available here](https://jordy3d.github.io/projects/trakt2letterboxd).
 It likely won't change much, but it works.
 
 ## A few notes: 
